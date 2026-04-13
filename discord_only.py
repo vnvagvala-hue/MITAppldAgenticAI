@@ -1,6 +1,7 @@
 from dotenv import load_dotenv 
 import os
 import discord
+import openai
 from discord.ext import commands
 load_dotenv()
 
@@ -18,4 +19,15 @@ async def on_message(message):
     if message.content.startswith('!hello'):
         await message.channel.send('Hello!')    
 
+
+openai.api_key = os.getenv("OPENAI_API_KEY")
+
+if message.content.endswith('question'):
+
+response = openai.ChatCompletion.create(
+    model="gpt-4o-mini",
+    messages=[
+        {"role": "user", "content": "Hello, please respond with a short message on {message.content}."}
+    ],
+)
 client.run(os.getenv('DSCBOTTOKEN'))
