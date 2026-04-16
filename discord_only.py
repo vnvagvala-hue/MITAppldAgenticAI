@@ -1,4 +1,4 @@
-pwdfrom dotenv import load_dotenv
+from dotenv import load_dotenv
 import os
 import discord
 from openai import OpenAI
@@ -43,6 +43,7 @@ async def on_message(message):
              or message.content.startswith('Hi Question:') \
               or message.content.startswith('hi question:') \
                 or message.content.startswith('Question:') \
+                  or message.content.endswith('?') \
                     or message.content.startswith('question:'):
         response = await get_openai_response(message.content)
         await message.channel.send(response)
